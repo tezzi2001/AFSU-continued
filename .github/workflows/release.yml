@@ -3,10 +3,6 @@ name: Manual Release
 on:
   workflow_dispatch:
     inputs:
-      tag:
-        description: "Tag name to create (example: v1.0.1-1.12.2)"
-        required: true
-        type: string
       release_name:
         description: "Release title (defaults to tag)"
         required: false
@@ -54,9 +50,19 @@ jobs:
           fi
           echo "path=$JAR_PATH" >> "$GITHUB_OUTPUT"
 
+      - name: Resolve tag from Gradle version
+        id: tag
+        run: |
+          VERSION="$(./gradlew -q properties | awk -F': ' '/^version:/ {print $2; exit}')"
+          if [ -z "$VERSION" ]; then
+            echo "Unable to read project version from Gradle."
+            exit 1
+          fi
+          echo "name=v$VERSION" >> "$GITHUB_OUTPUT"
+
       - name: Create and push tag
         run: |
-          TAG="${{ github.event.inputs.tag }}"
+          TAG="${{ steps.tag.outputs.name }}"
           if git rev-parse "$TAG" >/dev/null 2>&1; then
             echo "Tag '$TAG' already exists locally."
             exit 1
@@ -67,7 +73,7 @@ jobs:
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ github.event.inputs.tag }}
-          name: ${{ github.event.inputs.release_name != '' && github.event.inputs.release_name || github.event.inputs.tag }}
+          tag_name: ${{ steps.tag.outputs.name }}
+          name: ${{ github.event.inputs.release_name != '' && github.event.inputs.release_name || steps.tag.outputs.name }}
           prerelease: ${{ github.event.inputs.prerelease }}
           files: ${{ steps.jar.outputs.path }}
