@@ -5,9 +5,8 @@
     "description": "An addon to IC2 that adds a tier five energy storage unit.",
     "version": "${version}",
     "mcversion": "${mcversion}",
-    "url": "https://github.com/xbony2/AFSU",
+    "url": "https://github.com/tezzi2001/AFSU-continued",
     "authorList": [
-      "xbony2",
       "tezzi2001"
     ],
     "credits": "xbony2",

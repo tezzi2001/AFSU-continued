@@ -1,25 +1,56 @@
-AFSU
-====
+# AFSU
 
-An addon to IC2 that adds a tier five energy storage unit.
+**Advanced Field Storage Unit** — an addon for **IndustrialCraft 2 Experimental** that adds a tier‑5 EU storage block (AFSU) and the **AFB** crafting component.
 
-## Minecraft target
+This project is a **Minecraft 1.12.2** port of [xbony2/AFSU](https://github.com/xbony2/AFSU). Maintained by **tezzi2001**; contributions and PRs are welcome.
 
-This branch targets:
+---
 
-- Minecraft `1.12.2`
-- Forge `14.23.5.2847`
-- IndustrialCraft 2 Experimental `2.8.222-ex112`
+## Features
 
-## Dev setup
+| Item | Description |
+|------|-------------|
+| **AFSU** | Large EU buffer (1B EU cap, high output tier), IC2-style GUI, redstone modes, wrench rotation & removal |
+| **AFB** | Crafting ingredient for the AFSU (shaped recipe via IC2 advanced recipes) |
 
-1. Install JDK 8 (required for ForgeGradle 2.x / 1.12.2 toolchain).
-2. Run:
-   - `./gradlew clean build`
-3. For dev runs, use:
-   - `./gradlew runClient`
+---
 
-## Notes
+## Requirements
 
-- IC2 is pulled from the IC2 Maven repository (`http://maven.ic2.player.to/`) with the `dev` classifier.
-- This mod uses IC2 internals (container/gui/tile classes), so API-only dependency is not enough.
+| Component | Version |
+|-----------|---------|
+| Minecraft | **1.12.2** |
+| Minecraft Forge | **14.23.5.2847** |
+| IndustrialCraft² Experimental | **2.8.222-ex112** |
+| Java (build & run) | **JDK 8** |
+
+IC2 is resolved from the [IC2 Maven](http://maven.ic2.player.to/) (`build.gradle`). The mod integrates with IC2’s energy net and crafting; an API-only dependency is not sufficient for a full dev workspace.
+
+---
+
+## Building
+
+```bash
+# JDK 8 on PATH (or set JAVA_HOME)
+./gradlew clean build
+```
+
+Output JAR: `build/libs/` (name follows `archivesBaseName` + version in `build.gradle`).
+
+---
+
+## Development client
+
+```bash
+export JAVA_HOME=/path/to/jdk8   # if your default Java is newer
+./gradlew runClient
+```
+
+`runClient` keeps the Gradle task alive until you close Minecraft; `BUILD SUCCESSFUL` appears after exit.
+
+---
+
+## License & credits
+
+- Original **AFSU** mod: [xbony2](https://github.com/xbony2/AFSU) — see `LICENSE` for upstream copyright.
+- **1.12.2 port & maintenance**: tezzi2001 — issues and pull requests welcome.

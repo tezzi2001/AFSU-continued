@@ -1,4 +1,4 @@
-package xbony2.afsu;
+package tezzi2001.afsu;
 
 import java.io.File;
 

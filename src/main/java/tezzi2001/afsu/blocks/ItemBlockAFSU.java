@@ -1,4 +1,4 @@
-package xbony2.afsu.blocks;
+package tezzi2001.afsu.blocks;
 
 import java.util.List;
 
@@ -9,8 +9,8 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import xbony2.afsu.AFSUMod;
-import xbony2.afsu.tileentity.TileEntityAFSU;
+import tezzi2001.afsu.AFSUMod;
+import tezzi2001.afsu.tileentity.TileEntityAFSU;
 
 /**
  * Created by Master801 on 11/14/2014.

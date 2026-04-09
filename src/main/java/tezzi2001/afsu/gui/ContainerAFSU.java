@@ -1,4 +1,4 @@
-package xbony2.afsu.gui;
+package tezzi2001.afsu.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -7,7 +7,7 @@ import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import xbony2.afsu.tileentity.TileEntityAFSU;
+import tezzi2001.afsu.tileentity.TileEntityAFSU;
 
 public class ContainerAFSU extends Container {
 	private final TileEntityAFSU tile;

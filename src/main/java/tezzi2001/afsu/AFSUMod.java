@@ -1,10 +1,10 @@
-package xbony2.afsu;
+package tezzi2001.afsu;
 
-import xbony2.afsu.blocks.AFSUBlock;
-import xbony2.afsu.blocks.ItemBlockAFSU;
-import xbony2.afsu.gui.GuiHandler;
-import xbony2.afsu.items.AFB;
-import xbony2.afsu.tileentity.TileEntityAFSU;
+import tezzi2001.afsu.blocks.AFSUBlock;
+import tezzi2001.afsu.blocks.ItemBlockAFSU;
+import tezzi2001.afsu.gui.GuiHandler;
+import tezzi2001.afsu.items.AFB;
+import tezzi2001.afsu.tileentity.TileEntityAFSU;
 import ic2.api.item.IC2Items;
 import ic2.api.recipe.Recipes;
 import net.minecraft.block.Block;

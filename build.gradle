@@ -14,9 +14,9 @@ buildscript {
 
 apply plugin: "net.minecraftforge.gradle.forge"
 
-version = "2.1.0-1.12.2"
-group = "com.xbony2.afsu"
-archivesBaseName = "AFSU"
+version = "1.0.0-1.12.2"
+group = "com.tezzi2001.afsu"
+archivesBaseName = "AFSU-continued"
 
 sourceCompatibility = targetCompatibility = "1.8"
 compileJava {

@@ -1,4 +1,4 @@
-package xbony2.afsu.tileentity;
+package tezzi2001.afsu.tileentity;
 
 import ic2.api.energy.event.EnergyTileLoadEvent;
 import ic2.api.energy.event.EnergyTileUnloadEvent;
@@ -7,6 +7,7 @@ import ic2.api.energy.tile.IEnergyEmitter;
 import ic2.api.energy.tile.IEnergySink;
 import ic2.api.energy.tile.IEnergySource;
 import ic2.api.item.ElectricItem;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ItemStackHelper;
@@ -16,6 +17,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 
 public class TileEntityAFSU extends TileEntity implements ITickable, IEnergySink, IEnergySource, IInventory {
@@ -32,6 +35,7 @@ public class TileEntityAFSU extends TileEntity implements ITickable, IEnergySink
 	private int clientEnergyLow;
 	private int redstoneMode = REDSTONE_MODE_IGNORED;
 	private int redstoneOutputLevel;
+	private EnumFacing outputSide = EnumFacing.NORTH;
 
 	public String getName() {
 		return "tile.afsu.afsu.name";
@@ -93,6 +97,17 @@ public class TileEntityAFSU extends TileEntity implements ITickable, IEnergySink
 		return this.redstoneMode;
 	}
 
+	public EnumFacing getOutputSide() {
+		return this.outputSide;
+	}
+
+	public void setOutputSide(EnumFacing outputSide) {
+		if (outputSide == null || outputSide == this.outputSide) return;
+		this.outputSide = outputSide;
+		reloadEnergyNet();
+		markDirty();
+	}
+
 	public boolean canChargeItem(ItemStack stack) {
 		if (stack.isEmpty()) return false;
 		double maxCharge = ElectricItem.manager.getMaxCharge(stack);
@@ -139,6 +154,12 @@ public class TileEntityAFSU extends TileEntity implements ITickable, IEnergySink
 		}
 	}
 
+	private void reloadEnergyNet() {
+		if (this.world == null || this.world.isRemote || !this.energyNetAdded) return;
+		MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
+		MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
+	}
+
 	public int getStoredInt() {
 		return (int) Math.round(this.energy);
 	}
@@ -166,6 +187,7 @@ public class TileEntityAFSU extends TileEntity implements ITickable, IEnergySink
 		super.writeToNBT(nbt);
 		nbt.setDouble("energy", this.energy);
 		nbt.setInteger("redstoneMode", this.redstoneMode);
+		nbt.setByte("outputSide", (byte) this.outputSide.getIndex());
 		ItemStackHelper.saveAllItems(nbt, this.items);
 		return nbt;
 	}
@@ -175,12 +197,14 @@ public class TileEntityAFSU extends TileEntity implements ITickable, IEnergySink
 		super.readFromNBT(nbt);
 		this.energy = nbt.getDouble("energy");
 		this.redstoneMode = nbt.getInteger("redstoneMode");
+		this.outputSide = EnumFacing.byIndex(nbt.getByte("outputSide"));
+		if (this.outputSide == null) this.outputSide = EnumFacing.NORTH;
 		ItemStackHelper.loadAllItems(nbt, this.items);
 	}
 
 	@Override
 	public boolean acceptsEnergyFrom(IEnergyEmitter emitter, EnumFacing side) {
-		return side != EnumFacing.NORTH;
+		return side != this.outputSide;
 	}
 
 	@Override
@@ -206,7 +230,7 @@ public class TileEntityAFSU extends TileEntity implements ITickable, IEnergySink
 
 	@Override
 	public boolean emitsEnergyTo(IEnergyAcceptor receiver, EnumFacing side) {
-		return side == EnumFacing.NORTH;
+		return side == this.outputSide;
 	}
 
 	@Override
@@ -322,5 +346,13 @@ public class TileEntityAFSU extends TileEntity implements ITickable, IEnergySink
 	@Override
 	public boolean hasCustomName() {
 		return false;
+	}
+
+	/**
+	 * Keep the same tile when only blockstate properties (like facing) change.
+	 */
+	@Override
+	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
+		return oldState.getBlock() != newState.getBlock();
 	}
 }

@@ -1,4 +1,4 @@
-package xbony2.afsu.gui;
+package tezzi2001.afsu.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -7,7 +7,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import xbony2.afsu.tileentity.TileEntityAFSU;
+import tezzi2001.afsu.tileentity.TileEntityAFSU;
 
 public class GuiHandler implements IGuiHandler {
 

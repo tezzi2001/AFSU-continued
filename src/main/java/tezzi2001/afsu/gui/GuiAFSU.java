@@ -1,4 +1,4 @@
-package xbony2.afsu.gui;
+package tezzi2001.afsu.gui;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.GuiButton;
@@ -10,7 +10,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Collections;
 import java.util.Locale;
-import xbony2.afsu.tileentity.TileEntityAFSU;
+import tezzi2001.afsu.tileentity.TileEntityAFSU;
 
 @SideOnly(Side.CLIENT)
 public class GuiAFSU extends GuiContainer {

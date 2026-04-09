@@ -1,8 +1,8 @@
-package xbony2.afsu.items;
+package tezzi2001.afsu.items;
 
 import ic2.core.IC2;
 import net.minecraft.item.Item;
-import xbony2.afsu.AFSUMod;
+import tezzi2001.afsu.AFSUMod;
 
 public class AFB extends Item {
 
