@@ -2,10 +2,13 @@ package xbony2.afsu.blocks;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import xbony2.afsu.AFSUMod;
 import xbony2.afsu.tileentity.TileEntityAFSU;
 
@@ -17,10 +20,17 @@ public class ItemBlockAFSU extends ItemBlock {
 
 	public ItemBlockAFSU(Block block) {
 		super(block);
+		this.setHasSubtypes(false);
+		this.setMaxDamage(0);
 	}
 
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer player, List tooltipList, boolean par4){
+	public int getMetadata(int damage){
+		return 0;
+	}
+
+	@Override
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltipList, ITooltipFlag flagIn){
 		final String output = AFSUMod.translate("ic2.item.tooltip.Output") + " " + TileEntityAFSU.MAX_OUTPUT + "EU/t";
 		final String capacity = AFSUMod.translate("ic2.item.tooltip.Capacity") + " " + "1b EU";
 		final String stored = AFSUMod.translate("ic2.item.tooltip.Store") + " ";

@@ -1,0 +1,20 @@
+[
+  {
+    "modid": "afsu",
+    "name": "AFSU Mod",
+    "description": "An addon to IC2 that adds a tier five energy storage unit.",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "https://github.com/xbony2/AFSU",
+    "authorList": [
+      "xbony2",
+      "tezzi2001"
+    ],
+    "credits": "xbony2",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": [
+      "required-after:ic2"
+    ]
+  }
+]

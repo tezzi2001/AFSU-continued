@@ -1,48 +1,58 @@
 buildscript {
     repositories {
+        jcenter()
         mavenCentral()
         maven {
             name = "forge"
-            url = "http://files.minecraftforge.net/maven"
-        }
-        maven {
-            name = "sonatype"
-            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+            url = "https://maven.minecraftforge.net/"
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
+        classpath "net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT"
     }
 }
 
-apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: "net.minecraftforge.gradle.forge"
 
-version = "2.0.0a"
-group = "com.xbony2.AFSU"
+version = "2.1.0-1.12.2"
+group = "com.xbony2.afsu"
 archivesBaseName = "AFSU"
 
+sourceCompatibility = targetCompatibility = "1.8"
+compileJava {
+    sourceCompatibility = targetCompatibility = "1.8"
+}
+
+repositories {
+    maven {
+        name = "ic2"
+        url = "http://maven.ic2.player.to/"
+    }
+}
+
 minecraft {
-    version = "1.10.2-12.18.1.2073"
-	runDir = "eclipse"
-	mappings = "snapshot_20160823"
+    version = "1.12.2-14.23.5.2847"
+    runDir = "run"
+    mappings = "stable_39"
     replace "@VERSION@", project.version
+    replaceIn "AFSUMod.java"
 }
 
 dependencies {
-    compile files("libs/industrialcraft-2-2.6.84-ex110-dev.jar")
+    // Use the main IC2 jar in deobf mode to avoid dev-jar mapping mismatches at runtime.
+    deobfCompile "net.industrial-craft:industrialcraft-2:2.8.222-ex112"
 }
-
 
 processResources {
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
-    
+
     from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-        expand 'version':project.version, 'mcversion':project.minecraft.version
-    }     
-       
+        include "mcmod.info"
+        expand "version": project.version, "mcversion": project.minecraft.version
+    }
+
     from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
+        exclude "mcmod.info"
     }
 }

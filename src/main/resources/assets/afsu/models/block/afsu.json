@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "afsu:blocks/afsu_input_default",
+    "down": "afsu:blocks/afsu_top_default",
+    "up": "afsu:blocks/afsu_top_default",
+    "north": "afsu:blocks/afsu_output_default",
+    "south": "afsu:blocks/afsu_input_default",
+    "west": "afsu:blocks/afsu_input_default",
+    "east": "afsu:blocks/afsu_input_default"
+  }
+}

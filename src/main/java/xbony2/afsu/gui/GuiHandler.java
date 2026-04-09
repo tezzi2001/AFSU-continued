@@ -1,6 +1,5 @@
 package xbony2.afsu.gui;
 
-import ic2.core.block.wiring.ContainerElectricBlock;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -16,7 +15,7 @@ public class GuiHandler implements IGuiHandler {
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z){
 		TileEntity entity = world.getTileEntity(new BlockPos(x, y, z));
 		if(entity instanceof TileEntityAFSU)
-			return new ContainerElectricBlock(player, (TileEntityAFSU) entity);
+			return new ContainerAFSU(player.inventory, (TileEntityAFSU) entity);
 
 		return null;
 	}
@@ -26,7 +25,7 @@ public class GuiHandler implements IGuiHandler {
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z){
 		TileEntity entity = world.getTileEntity(new BlockPos(x, y, z));
 		if(entity instanceof TileEntityAFSU)
-			return new GuiAFSU(new ContainerElectricBlock(player, (TileEntityAFSU) entity));
+			return new GuiAFSU(new ContainerAFSU(player.inventory, (TileEntityAFSU) entity));
 
 		return null;
 	}
